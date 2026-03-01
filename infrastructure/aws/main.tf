@@ -465,14 +465,6 @@ resource "aws_ecs_service" "backend" {
     rollback = true
   }
   
-  # Auto-scaling
-  scaling_configuration {
-    min_capacity = var.backend_min_capacity
-    max_capacity = var.backend_max_capacity
-    
-    role_arn = aws_iam_role.ecs_scaling_role.arn
-  }
-  
   depends_on = [aws_lb_listener_rule.backend]
   
   tags = {
