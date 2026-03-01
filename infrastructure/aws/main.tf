@@ -396,11 +396,11 @@ resource "aws_ecs_task_definition" "backend" {
   memory                   = var.environment == "prod" ? "1024" : "512"
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   task_role_arn            = aws_iam_role.ecs_task_role.arn
-  
+
   container_definitions = jsonencode([
     {
       name         = "backend"
-      image        = "${local.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.app_name}-backend:${var.environment}"
+      image        = "${local.backend_image}:${var.environment}"
       essential    = true
       portMappings = [
         {
@@ -493,7 +493,7 @@ resource "aws_ecs_task_definition" "frontend" {
   container_definitions = jsonencode([
     {
       name         = "frontend"
-      image        = "${local.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.app_name}-frontend:${var.environment}"
+      image        = "${local.frontend_image}:${var.environment}"
       essential    = true
       portMappings = [
         {
@@ -682,7 +682,8 @@ data "aws_caller_identity" "current" {}
 
 locals {
   aws_account_id = data.aws_caller_identity.current.account_id
-  # Fix: reference local correctly in task definitions
+  backend_image  = "${local.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/devops-backend"
+  frontend_image = "${local.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/devops-frontend"
 }
 
 #==============================================================================

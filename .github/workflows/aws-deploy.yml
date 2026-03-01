@@ -84,7 +84,7 @@ jobs:
         working-directory: ./infrastructure/aws
         run: |
           terraform init \
-            -backend-config="bucket=devops-tf-state-${{ secrets.AWS_ACCOUNT_ID }}" \
+            -backend-config="bucket=devops-assignment-tf-state" \
             -backend-config="key=aws/dev/terraform.tfstate" \
             -backend-config="region=${{ env.AWS_REGION }}" \
             -backend-config="dynamodb_table=devops-assignment-tf-lock"
@@ -121,7 +121,7 @@ jobs:
         working-directory: ./infrastructure/aws
         run: |
           terraform init \
-            -backend-config="bucket=devops-tf-state-${{ secrets.AWS_ACCOUNT_ID }}" \
+            -backend-config="bucket=devops-assignment-tf-state" \
             -backend-config="key=aws/staging/terraform.tfstate" \
             -backend-config="region=${{ env.AWS_REGION }}" \
             -backend-config="dynamodb_table=devops-assignment-tf-lock"
@@ -158,7 +158,7 @@ jobs:
         working-directory: ./infrastructure/aws
         run: |
           terraform init \
-            -backend-config="bucket=devops-tf-state-${{ secrets.AWS_ACCOUNT_ID }}" \
+            -backend-config="bucket=devops-assignment-tf-state" \
             -backend-config="key=aws/prod/terraform.tfstate" \
             -backend-config="region=${{ env.AWS_REGION }}" \
             -backend-config="dynamodb_table=devops-assignment-tf-lock"

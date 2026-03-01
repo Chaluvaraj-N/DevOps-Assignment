@@ -9,7 +9,7 @@ resource "google_cloud_run_service" "backend" {
   template {
     spec {
       containers {
-        image = "gcr.io/${var.project_id}/${var.app_name}-backend:${var.environment}"
+        image = "gcr.io/${var.project_id}/devops-backend:${var.environment}"
         
         resources {
           limits = {
@@ -73,7 +73,7 @@ resource "google_cloud_run_service" "frontend" {
   template {
     spec {
       containers {
-        image = "gcr.io/${var.project_id}/${var.app_name}-frontend:${var.environment}"
+        image = "gcr.io/${var.project_id}/devops-frontend:${var.environment}"
         
         resources {
           limits = {
